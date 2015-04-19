@@ -1,0 +1,121 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Faculty Course Alottment System</title>
+
+<link href="../GitHub/FacultyCourseAlottment/demo.css" type="text/css" rel="stylesheet" />
+
+<!-- Bootstrap CSS -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+
+<!-- jQuery UI CSS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	//Helper function to keep table row from collapsing when being sorted
+	var fixHelperModified = function(e, tr) {
+		var $originals = tr.children();
+		var $helper = tr.clone();
+		$helper.children().each(function(index)
+		{
+		  $(this).width($originals.eq(index).width())
+		});
+		return $helper;
+	};
+
+	//Make diagnosis table sortable
+	$("#diagnosis_list tbody").sortable({
+    	helper: fixHelperModified,
+		stop: function(event,ui) {renumber_table('#diagnosis_list')}
+	}).disableSelection();
+
+
+	//Delete button in table rows
+	 $('#diagnosis_list tbody').sortable({
+        update: function(event, ui) {
+            $('#answer').text("You moved: " + ui.item.html())}
+    });
+	
+
+});
+
+/*
+var startArray, stopArray;
+$("#diagnosis_list tbody").sortable({
+    start: function(){
+        startArray = $(this).sortable('toArray');
+    },
+    beforeStop: function(){
+        stopArray = $(this).sortable('toArray');
+    },
+    update: function(){
+        $.each(stopArray, function(index, value){
+            if(startArray[index] !== value){
+                alert(value + ' is now on position ' + (index+1));
+            }
+        });
+
+    }
+});*/
+
+/*
+var texts = $("td").map(function() {
+    return $(this).text();
+});
+*/
+//Renumber table rows
+function renumber_table(tableID) {
+	$(tableID + " tr").each(function() {
+		count = $(this).parent().children().index($(this)) + 1;
+		$(this).find('#priority').html(count);
+	});
+}
+
+
+</script>
+
+<style type="text/css">
+.ui-sortable tr {
+	cursor:pointer;
+}
+		
+.ui-sortable tr:hover {
+	background:rgba(244,251,17,0.45);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="content">
+
+<h1>Kindly drag the courses in ascending order as per preference.</h1>
+
+            <table class="table" id="diagnosis_list">
+                <thead>
+                    <tr><th>Course ID</th><th>Course Name</th><th>Program</th><th>Year<th>&nbsp;</th></tr>
+                </thead>
+                <tbody>
+					<tr><td id='priority'>CS-1601</td><td>Neural Networks</td><td>B.Tech</td><td>Third</td></tr>
+					<tr><td id='priority'>CS-1602</td><td>Fog Architecture</td><td>B.Tech</td><td>Third</td></tr>
+					<tr><td id='priority'>CS-1603</td><td>VANETs</td><td>B.Tech</td><td>Third</td></tr>
+					<tr><td id='priority'>CS-1604</td><td>Regression Models </td><td>M.Tech</td><td>Third</td></tr>
+					<tr><td id='priority'>CS-1605</td><td>Recommender Systems </td><td>M.Tech</td><td>Third</td></tr>
+                </tbody>
+            </table>
+
+</div>
+<br/>
+<span id="answer"></span>
+<br/>
+</body>
+</html>
