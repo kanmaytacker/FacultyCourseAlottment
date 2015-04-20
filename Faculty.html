@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Faculty Course Alottment System</title>
 
-<link href="../GitHub/FacultyCourseAlottment/demo.css" type="text/css" rel="stylesheet" />
+<link href="../demo.css" type="text/css" rel="stylesheet" />
 
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" />
@@ -43,11 +43,28 @@ $(document).ready(function() {
 
 
 	//Return value
-	 $('#diagnosis_list tbody').sortable({
+	/* $('#diagnosis_list tbody').sortable({
         update: function(event, ui) {
             $('#answer').text("You moved: " + ui.item.html())}
     });
+	*/
+	$("#submit").click(function(){
 	
+	
+	var arr=[];
+	var i=0;
+	$('.sub').each(function()
+{
+      arr[i++] = this.id;
+      
+}
+
+$.post("test.php",{'arr':arr});
+);
+	
+	
+	
+	});
 
 });
 
@@ -110,17 +127,18 @@ function renumber_table(tableID) {
                     <tr><th>Course ID</th><th>Course Name</th><th>Program</th><th>Year<th>&nbsp;</th></tr>
                 </thead>
                 <tbody>
-					<tr><td id='priority'>CS-1601</td><td>Neural Networks</td><td>B.Tech</td><td>Third</td></tr>
-					<tr><td id='priority'>CS-1602</td><td>Fog Architecture</td><td>B.Tech</td><td>Third</td></tr>
-					<tr><td id='priority'>CS-1603</td><td>VANETs</td><td>B.Tech</td><td>Third</td></tr>
-					<tr><td id='priority'>CS-1604</td><td>Regression Models </td><td>M.Tech</td><td>Third</td></tr>
-					<tr><td id='priority'>CS-1605</td><td>Recommender Systems </td><td>M.Tech</td><td>Third</td></tr>
+					<tr><td class="sub" id='1'>1</td><td>Neural Networks</td><td>B.Tech</td><td>Third</td></tr>
+					<tr><td class="sub" id='2'>2</td><td>Fog Architecture</td><td>B.Tech</td><td>Third</td></tr>
+					<tr><td class="sub" id='3'>3</td><td>VANETs</td><td>B.Tech</td><td>Third</td></tr>
+					<tr><td class="sub" id='4'>4</td><td>Regression Models </td><td>M.Tech</td><td>Third</td></tr>
+					<tr><td class="sub" id='5'>5</td><td>Recommender Systems </td><td>M.Tech</td><td>Third</td></tr>
                 </tbody>
             </table>
 
 </div>
 <br/>
 <span id="answer"></span>
+<button type="button" id="submit">Submit</button>
 <br/>
 </body>
 </html>
